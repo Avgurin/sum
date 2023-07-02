@@ -1,0 +1,161 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: sans-serif;
+    background-color: #181c1f;
+    color: #bdd1d4;
+    margin: 2rem;
+  }
+  
+  .digitText {
+    font: inherit;
+    color: #f8f8f8;
+    text-align: center;
+    font-size: 5rem;
+    user-select: none;
+  }
+  
+  .info {
+    font-size: 2rem;
+  }
+  
+  .redDigit {
+    color: #ff0000;
+  }
+  
+  .correctAnswer {
+    animation-duration: 0.7s;
+    animation-name: correctAnswerAnimation;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    /*text-shadow: 0.2rem 0.2rem 0.5rem rgb(4, 248, 8);
+    transition: all 0.2s ease-out;*/
+  }
+  
+  .wrongAnswer {
+    animation-duration: 0.7s;
+    animation-name: wrongAnswerAnimation;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    /*text-shadow: 0.2rem 0.2rem 0.5rem rgb(248, 4, 4);
+    transition: all 0.2s ease-out;*/
+  }
+  
+  .disabledButtons {
+    pointer-events: none;
+  }
+  
+  #log {
+    font: inherit;
+    color: #f8f8f8;
+    font-size: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.2rem 1rem;
+    margin: 0rem 0rem 0rem 0rem;
+    max-width: 50rem;
+  }
+  
+  .logRecord {
+    padding: 0.2rem;
+  }
+  
+  #buttons {
+    margin: auto;
+    padding: 0rem 2rem 0rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin: 0rem 0;
+    overflow: hidden;
+  }
+  
+  #buttons button {
+    margin: 0.7rem 0rem;
+    font: inherit;
+    font-size: 1.5rem;
+    background-color: #5e6264;
+    border: none;
+    border-color: #f3e248;
+    color: #e0eff1;
+    border-radius: 50%;
+    padding: 0.6rem 1.1rem;
+    cursor: pointer;
+    box-shadow: 0.2rem 0.2rem 0.2rem rgb(0, 0, 0),
+      rgba(0, 0, 0, 0.9) -0.05rem -0.05rem 0.2rem 0.05rem inset;
+    transition: all 0.2s ease-out;
+    -webkit-tap-highlight-color: transparent; /* square around the button on mobile*/
+    user-select: none; /* prohibits text selection on mobile*/
+  }
+  
+  #buttons button.activeBtn {
+    background-color: #f3e248;
+    color: #273133;
+    box-shadow: rgba(44, 40, 0, 0.9) -0.05rem -0.05rem 0.2rem 0.05rem inset,
+      0.2rem 0.4rem 0.2rem rgb(0, 0, 0);
+    transform: translateY(-0.3rem);
+  }
+  
+  @-webkit-keyframes correctAnswerAnimation {
+    from {
+      text-shadow: 0.2rem 0.2rem 0.5rem rgb(4, 248, 8),
+        -0.2rem -0.2rem 0.5rem rgb(4, 248, 8);
+    }
+    to {
+      text-shadow: none;
+    }
+  }
+  
+  @-moz-keyframes correctAnswerAnimation {
+    from {
+      text-shadow: 0.2rem 0.2rem 0.5rem rgb(4, 248, 8),
+        -0.2rem -0.2rem 0.5rem rgb(4, 248, 8);
+    }
+    to {
+      text-shadow: none;
+    }
+  }
+  @keyframes correctAnswerAnimation {
+    from {
+      text-shadow: 0.2rem 0.2rem 0.5rem rgb(4, 248, 8),
+        -0.2rem -0.2rem 0.5rem rgb(4, 248, 8);
+    }
+    to {
+      text-shadow: none;
+    }
+  }
+  
+  @-webkit-keyframes wrongAnswerAnimation {
+    from {
+      text-shadow: 0.2rem 0.2rem 0.5rem rgb(248, 4, 4),
+        -0.2rem -0.2rem 0.5rem rgb(4, 248, 8);
+    }
+    to {
+      text-shadow: none;
+    }
+  }
+  
+  @-moz-keyframes wrongAnswerAnimation {
+    from {
+      text-shadow: 0.2rem 0.2rem 0.5rem rgb(248, 4, 4),
+        -0.2rem -0.2rem 0.5rem rgb(248, 4, 4);
+    }
+    to {
+      text-shadow: none;
+    }
+  }
+  @keyframes wrongAnswerAnimation {
+    from {
+      text-shadow: 0.2rem 0.2rem 0.5rem rgb(248, 4, 4),
+        -0.2rem -0.2rem 0.5rem rgb(248, 4, 4);
+    }
+    to {
+      text-shadow: none;
+    }
+  }
+  
