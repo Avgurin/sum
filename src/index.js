@@ -46,15 +46,15 @@ function handleClick(event) {
   }
   switch (option) {
     case 0:
-      sumText.textContent = digitSum;
+      sumText.textContent = enteredDigit;
       sumText.className = wrongColor;
       break;
     case 1:
-      part1Text.textContent = digit1;
+      part1Text.textContent = enteredDigit;
       part1Text.className = wrongColor;
       break;
     default:
-      part2Text.textContent = digit2;
+      part2Text.textContent = enteredDigit;
       part2Text.className = wrongColor;
       break;
   }
