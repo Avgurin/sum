@@ -46,15 +46,15 @@ function handleClick(event) {
   }
   switch (option) {
     case 0:
-      sumText.textContent = enteredDigit;
+      sumText.textContent = digitSum > 9 ? enteredDigit+10 : enteredDigit;
       sumText.className = wrongColor;
       break;
     case 1:
-      part1Text.textContent = enteredDigit;
+      part1Text.textContent = digit1 > 9 ? enteredDigit+10 : enteredDigit;;
       part1Text.className = wrongColor;
       break;
     default:
-      part2Text.textContent = enteredDigit;
+      part2Text.textContent = digit2 > 9 ? enteredDigit+10 : enteredDigit;;
       part2Text.className = wrongColor;
       break;
   }
