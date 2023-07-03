@@ -8,6 +8,8 @@ const btn7 = document.getElementById("btn-7");
 const btn8 = document.getElementById("btn-8");
 const btn9 = document.getElementById("btn-9");
 const btn0 = document.getElementById("btn-0");
+const correctAudio = document.getElementById("correctAudioId");
+const wrongAudio = document.getElementById("wrongAudioId");
 const buttonsDiv = document.getElementById("buttons");
 const digitsDiv = document.getElementById("digits");
 const sumText = document.getElementById("sum");
@@ -59,6 +61,7 @@ function handleClick(event) {
 }
 
 function answerIsCorrect(btnClicked) {
+  correctAudio.play();
   buttonsDiv.className = "disabledButtons";
   digitsDiv.className = "correctAnswer";
   setTimeout(() => {
@@ -67,6 +70,7 @@ function answerIsCorrect(btnClicked) {
 }
 
 function answerIsWrong(btnClicked) {
+  wrongAudio.play();
   buttonsDiv.className = "disabledButtons";
   digitsDiv.className = "wrongAnswer";
   setTimeout(() => {
