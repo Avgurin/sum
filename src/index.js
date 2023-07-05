@@ -8,6 +8,7 @@ const btn7 = document.getElementById("btn-7");
 const btn8 = document.getElementById("btn-8");
 const btn9 = document.getElementById("btn-9");
 const btn0 = document.getElementById("btn-0");
+const logContent = document.getElementById("log");
 const correctAudio = document.getElementById("correctAudioId");
 const wrongAudio = document.getElementById("wrongAudioId");
 const buttonsDiv = document.getElementById("buttons");
@@ -32,11 +33,12 @@ let digit2;
 let digitSum;
 let answer;
 let option;
-let wrongColor;
 
 function handleClick(event) {
   event.target.className = "activeBtn";
   const enteredDigit = parseInt(event.target.id.substring(4), 10);
+  const enteredFullDigit = getEnteredFullDigit(enteredDigit);
+  let wrongColor; //class for red or DEFAULT color
   if (enteredDigit === answer) {
     answerIsCorrect(event.target);
     wrongColor = "";
@@ -44,17 +46,51 @@ function handleClick(event) {
     answerIsWrong(event.target);
     wrongColor = "redDigit";
   }
+  showPressedDigit(enteredFullDigit, wrongColor);
+  addLogItem(enteredFullDigit, wrongColor);
+}
+
+function getEnteredFullDigit(enteredDigit) {
   switch (option) {
     case 0:
-      sumText.textContent = digitSum > 9 ? enteredDigit+10 : enteredDigit;
+      return digitSum > 9 ? enteredDigit + 10 : enteredDigit;
+    case 1:
+      return digit1 > 9 ? enteredDigit + 10 : enteredDigit;
+    default:
+      return digit2 > 9 ? enteredDigit + 10 : enteredDigit;
+  }
+}
+
+function addLogItem(enteredFullDigit, wrongColor) {
+  const logItem = document.createElement("div");
+  logItem.className = "logRecord";
+  logItem.innerHTML = composeItem(enteredFullDigit, wrongColor);
+  logContent.append(logItem);
+}
+
+function composeItem(enteredFullDigit, wrongColor) {
+  switch (option) {
+    case 0:
+      return `${digit1} + ${digit2} = <span class="${wrongColor}">${enteredFullDigit}</span>`;
+    case 1:
+      return `<span class="${wrongColor}">${enteredFullDigit}</span> + ${digit2} = ${digitSum}`;
+    default:
+      return `${digit1} + <span class="${wrongColor}">${enteredFullDigit}</span> = ${digitSum}`;
+  }
+}
+
+function showPressedDigit(enteredFullDigit, wrongColor) {
+  switch (option) {
+    case 0:
+      sumText.textContent = enteredFullDigit;
       sumText.className = wrongColor;
       break;
     case 1:
-      part1Text.textContent = digit1 > 9 ? enteredDigit+10 : enteredDigit;;
+      part1Text.textContent = enteredFullDigit;
       part1Text.className = wrongColor;
       break;
     default:
-      part2Text.textContent = digit2 > 9 ? enteredDigit+10 : enteredDigit;;
+      part2Text.textContent = enteredFullDigit;
       part2Text.className = wrongColor;
       break;
   }
@@ -98,21 +134,18 @@ function clearStyles(btnClicked) {
   getNewDigits();
 }
 
-/*function highlightButton(btnClicked) {
-  btnClicked.className = "activeBtn"; //set active style
-}*/
-
 function getNewDigits() {
-  digitSum = Math.floor(Math.random() * 14 + 6);
-  digit1 = Math.floor(Math.random() * (digitSum - 2));
+  digitSum = Math.floor(Math.random() * 14 + 6); //sum
+  digit1 = Math.floor(Math.random() * (digitSum - 2) + 2);
   digit2 = digitSum - digit1;
-
   option = Math.floor(Math.random() * 3); //0, 1 or 2
-  console.log("option = ", option);
-  console.log("digitSum = ", digitSum);
-  console.log("digit1 = ", digit1);
-  console.log("digit2 = ", digit2);
-  switch (option) {
+  randomizePosition(digitSum, digit1, digit2, option);
+}
+
+function randomizePosition() {
+  switch (
+    option //randomize ? position
+  ) {
     case 0:
       sumText.textContent =
         digitSum > 9
