@@ -33,8 +33,14 @@ let digit2;
 let digitSum;
 let answer;
 let option;
+let startTime, endTime, answerTime;
 
 function handleClick(event) {
+  endTime = performance.now();
+  answerTime = Math.floor(endTime - startTime);
+  //console.log("startTime = ", startTime);
+  //console.log("endTime = ", endTime);
+  //console.log("answerTime = ", answerTime);
   event.target.className = "activeBtn";
   const enteredDigit = parseInt(event.target.id.substring(4), 10);
   const enteredFullDigit = getEnteredFullDigit(enteredDigit);
@@ -69,13 +75,25 @@ function addLogItem(enteredFullDigit, wrongColor) {
 }
 
 function composeItem(enteredFullDigit, wrongColor) {
+  const miliSecRecord = `<br><span class="miliSec">(${
+    answerTime / 1000
+  } сек)</span>`;
   switch (option) {
     case 0:
-      return `${digit1} + ${digit2} = <span class="${wrongColor}">${enteredFullDigit}</span>`;
+      return (
+        `${digit1} + ${digit2} = <span class="${wrongColor}">${enteredFullDigit}</span>` +
+        miliSecRecord
+      );
     case 1:
-      return `<span class="${wrongColor}">${enteredFullDigit}</span> + ${digit2} = ${digitSum}`;
+      return (
+        `<span class="${wrongColor}">${enteredFullDigit}</span> + ${digit2} = ${digitSum}` +
+        miliSecRecord
+      );
     default:
-      return `${digit1} + <span class="${wrongColor}">${enteredFullDigit}</span> = ${digitSum}`;
+      return (
+        `${digit1} + <span class="${wrongColor}">${enteredFullDigit}</span> = ${digitSum}` +
+        miliSecRecord
+      );
   }
 }
 
@@ -140,6 +158,7 @@ function getNewDigits() {
   digit2 = digitSum - digit1;
   option = Math.floor(Math.random() * 3); //0, 1 or 2
   randomizePosition(digitSum, digit1, digit2, option);
+  startTime = performance.now();
 }
 
 function randomizePosition() {

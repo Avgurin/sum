@@ -25,6 +25,11 @@ body {
   color: #ff0000;
 }
 
+.miliSec {
+  color: #f8f8f857;
+  font-size: 0.9rem;
+}
+
 .correctAnswer {
   animation-duration: 0.7s;
   animation-name: correctAnswerAnimation;
