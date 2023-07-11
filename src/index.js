@@ -8,9 +8,12 @@ const btn7 = document.getElementById("btn-7");
 const btn8 = document.getElementById("btn-8");
 const btn9 = document.getElementById("btn-9");
 const btn0 = document.getElementById("btn-0");
+
 const logContent = document.getElementById("log");
 const correctAudio = document.getElementById("correctAudioId");
 const wrongAudio = document.getElementById("wrongAudioId");
+correctAudio.volume = 0.2;
+wrongAudio.volume = 0.2;
 const buttonsDiv = document.getElementById("buttons");
 const digitsDiv = document.getElementById("digits");
 const sumText = document.getElementById("sum");
@@ -27,6 +30,20 @@ btn7.addEventListener("click", handleClick);
 btn8.addEventListener("click", handleClick);
 btn9.addEventListener("click", handleClick);
 btn0.addEventListener("click", handleClick);
+
+const startBtn = document.getElementById("startBtn");
+startBtn.addEventListener("click", startBtnHandleClick);
+const overlayBlack = document.getElementById("overlayBlack");
+const startScreen = document.getElementById("startScreen");
+
+function startBtnHandleClick() {
+  startBtn.classList.add("activeInfoBtn");
+  setTimeout(() => {
+    overlayBlack.className = "display-none";
+    startScreen.className = "display-none";
+    getNewDigits();
+  }, 400);
+}
 
 let digit1;
 let digit2;
@@ -195,5 +212,6 @@ function randomizePosition() {
   }
 }
 
+//old start
 getNewDigits();
 digitsDiv.style.visibility = "visible";
