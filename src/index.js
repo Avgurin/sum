@@ -12,13 +12,18 @@ const btn0 = document.getElementById("btn-0");
 const logContent = document.getElementById("log");
 const correctAudio = document.getElementById("correctAudioId");
 const wrongAudio = document.getElementById("wrongAudioId");
-correctAudio.volume = 0.2;
-wrongAudio.volume = 0.2;
+
 const buttonsDiv = document.getElementById("buttons");
 const digitsDiv = document.getElementById("digits");
 const sumText = document.getElementById("sum");
 const part1Text = document.getElementById("part1");
 const part2Text = document.getElementById("part2");
+const startBtn = document.getElementById("startBtn");
+const overlayBlack = document.getElementById("overlayBlack");
+const startScreen = document.getElementById("startScreen");
+const statScreen = document.getElementById("statScreen");
+const continueBtn = document.getElementById("continueBtn");
+const statText = document.getElementById("statText");
 
 btn1.addEventListener("click", handleClick);
 btn2.addEventListener("click", handleClick);
@@ -30,11 +35,21 @@ btn7.addEventListener("click", handleClick);
 btn8.addEventListener("click", handleClick);
 btn9.addEventListener("click", handleClick);
 btn0.addEventListener("click", handleClick);
-
-const startBtn = document.getElementById("startBtn");
 startBtn.addEventListener("click", startBtnHandleClick);
-const overlayBlack = document.getElementById("overlayBlack");
-const startScreen = document.getElementById("startScreen");
+continueBtn.addEventListener("click", continueGame);
+
+correctAudio.volume = 0.2;
+wrongAudio.volume = 0.2;
+let digit1;
+let digit2;
+let digitSum;
+let answer;
+let option;
+let startTime, endTime, answerTime;
+let problems = [];
+let problemCount;
+const maxProblemCount = 12;
+let wrongAnswerCount = 0;
 
 function startBtnHandleClick() {
   startBtn.classList.add("activeInfoBtn");
@@ -43,18 +58,14 @@ function startBtnHandleClick() {
     startScreen.className = "display-none";
     getNewDigits();
   }, 400);
+  problemCount = 0;
 }
-
-let digit1;
-let digit2;
-let digitSum;
-let answer;
-let option;
-let startTime, endTime, answerTime;
 
 function handleClick(event) {
   endTime = performance.now();
   answerTime = Math.floor(endTime - startTime);
+  problems[problemCount] = endTime - startTime;
+  problemCount++;
   //console.log("startTime = ", startTime);
   //console.log("endTime = ", endTime);
   //console.log("answerTime = ", answerTime);
@@ -71,6 +82,42 @@ function handleClick(event) {
   }
   showPressedDigit(enteredFullDigit, wrongColor);
   addLogItem(enteredFullDigit, wrongColor);
+}
+
+function continueGame() {
+  continueBtn.classList.add("activeInfoBtn");
+  setTimeout(() => {
+    continueBtn.className = "infoBtn";
+  }, 300);
+  setTimeout(() => {
+    statScreen.className = "display-none";
+  }, 400);
+  problemCount = 0;
+  wrongAnswerCount = 0;
+  logContent.innerHTML = "";
+  clearStyles(btn1);
+}
+
+function showStat() {
+  //  console.log(" ---- getAverageAnswerTime= ", getAverageAnswerTime());
+  statText.innerHTML = `Среднее время обдумывания ${
+    getAverageAnswerTime() / 1000
+  } сек. <p>Количество ошибок ${wrongAnswerCount}`;
+  statScreen.className = "statSize visible";
+  buttonsDiv.className = "disabledButtons";
+}
+
+function getAverageAnswerTime() {
+  let problemSum = 0;
+  let averageAnswerTime;
+  for (let problemItem of problems) {
+    problemSum = problemSum + problemItem;
+    console.log("problemItem = ", problemItem);
+  }
+  console.log("problemSum = ", problemSum);
+  averageAnswerTime = Math.floor(problemSum / 12);
+  console.log("averageAnswerTime = ", averageAnswerTime);
+  return averageAnswerTime;
 }
 
 function getEnteredFullDigit(enteredDigit) {
@@ -144,6 +191,7 @@ function answerIsWrong(btnClicked) {
   wrongAudio.play();
   buttonsDiv.className = "disabledButtons";
   digitsDiv.className = "wrongAnswer";
+  wrongAnswerCount++;
   setTimeout(() => {
     clearStyles(btnClicked);
   }, 4000); //remove style
@@ -166,7 +214,11 @@ function clearStyles(btnClicked) {
   btn8.className = "";
   btn9.className = "";
   btn0.className = "";
-  getNewDigits();
+  if (problemCount === maxProblemCount) {
+    showStat();
+  } else {
+    getNewDigits();
+  }
 }
 
 function getNewDigits() {

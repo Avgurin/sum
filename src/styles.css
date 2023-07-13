@@ -10,7 +10,8 @@ body {
 }
 
 #startScreen.display-none,
-#overlayBlack.display-none {
+#overlayBlack.display-none,
+#statScreen.display-none {
   position: fixed;
   opacity: 0;
   z-index: -200;
@@ -67,7 +68,7 @@ body {
   text-align: center;
 }
 
-#overlayBlack.visible {
+#overlayBlack {
   position: fixed;
   z-index: 200;
   top: 0;
@@ -80,7 +81,7 @@ body {
 }
 
 .infoBtn {
-  margin: 0rem 0rem;
+  margin: 1rem 0rem;
   font: inherit;
   font-size: 1.2rem;
   background-color: #5e6264;
@@ -88,7 +89,7 @@ body {
   border-color: #f3e248;
   color: #e0eff1;
   border-radius: 0.5rem;
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem 0.8rem;
   cursor: pointer;
   box-shadow: 0.2rem 0.2rem 0.2rem rgb(0, 0, 0),
     rgba(0, 0, 0, 0.9) -0.05rem -0.05rem 0.2rem 0.05rem inset;
@@ -103,26 +104,39 @@ body {
   transform: translateY(0.1rem);
 }
 
-#startScreen.visible {
+#startScreen.visible,
+#statScreen.visible {
   position: fixed;
   text-align: center;
   font-size: 1.2rem;
-  z-index: 201;
   background: #f3e248;
   color: #273133;
   top: 0;
   left: 50%; /* center trick */
   transform: translateX(-50%); /* center trick */
-  margin: 11rem auto auto auto;
-  width: 15rem;
-  height: 10rem;
-  padding: 1.9rem 0 0 0;
   border-radius: 0.5rem;
   opacity: 1;
   box-shadow: rgba(44, 40, 0, 0.9) -0.05rem -0.05rem 0.2rem 0.05rem inset,
     0.2rem 0.4rem 0.2rem rgb(0, 0, 0);
   animation: fade-in-1 0.5s ease-in forwards;
 }
+
+#startScreen.startSize.visible {
+  z-index: 201;
+  width: 15rem;
+  height: 10.5rem;
+  padding: 1.5rem 0 0 0;
+  margin: 10rem auto auto auto;
+}
+
+#statScreen.statSize.visible {
+  z-index: 202;
+  width: 25rem;
+  height: 12rem;
+  padding: 1.9rem 1rem 0 1rem;
+  margin: 7rem auto auto auto;
+}
+
 @keyframes fade-in-01 {
   to {
     opacity: 0.5;
